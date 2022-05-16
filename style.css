@@ -1,0 +1,77 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: #000 url("images/background.jpg") center center no-repeat fixed;
+    background-size: cover;
+}
+
+.calc-body {
+    border: 1px solid #fff;
+    box-shadow: 0px 1px 13px 0px #0000008a;
+    margin: 200px auto auto auto;
+    width: 450px;
+    height: 685px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.452);
+}
+
+.tela {
+    text-align: right;
+    height: 150px;
+    border: 1px solid #fff;
+    border-radius: 10px 10px 0 0;
+    font-size: 60px;
+    padding: 0 5px 5px 0;
+    padding-top: 50px;
+    color: #fff;
+    text-shadow: 0px 0px 2px #000;
+}
+
+table {
+    margin: auto;
+}
+
+button {
+    background-color: transparent;
+    border-radius: 10px;
+    border: 1px solid rgb(255, 255, 255);
+    width: 100px;
+    height: 100px;
+    padding: 20px;
+    margin: 1px;
+    font-size: 50px;
+    color: white;
+    text-shadow: 0px 0px 2px #000;
+    transition: all 0.3s;
+}
+
+button[value="="] {
+    height: 200px;
+}
+
+button[value='0'] {
+    width: 200px;
+}
+
+button:hover {
+    background-color: rgba(255, 255, 255, 0.74);
+    box-shadow: 0px 0px 20px #fff;
+    text-shadow: none;
+    color: #ac89fc;
+}
+
+button:active {
+    border-color: #ac89fc;
+    transform: scale(0.98);
+}
+
+.destaque {
+    background-color: #ac89fc48;
+    text-shadow: none;
+    font-weight: bold;
+}
