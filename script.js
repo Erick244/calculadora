@@ -1,76 +1,93 @@
-const tela = document.querySelector('.tela');
-const botoes = document.querySelectorAll('button').forEach(e => {
-    e.onclick = () => {
-        const valor = e.value;
-        if (valor == 'c' || valor == '=' || valor == 'del') {
-            executeFunctions(valor);
-        } else if (!isNaN(valor)) {
-            exibirTela(valor);
-        } else {
-            const ultimoValor = getUltimoValor(tela.innerHTML);
-            if (ultimoValor != '/' && ultimoValor != '*' && ultimoValor != '-' && ultimoValor != '+' && ultimoValor != '.') {
-                exibirTela(valor);
-            }
+function Calculadora() {
+    const tela = document.querySelector('.tela');
+    this.exibirTela = (elem, type) => {
+        switch (type) {
+            case 'numero':
+                if (!limit()) {
+                    tela.innerHTML == '0' ? tela.innerHTML = elem 
+                    : tela.innerHTML += elem;
+                }
+                break;
+            case 'sinal':
+                if (!limit()) {
+                    isSinal(getUltimoElem()) ? null : tela.innerHTML += elem;
+                }
+                break;
+            case 'funcao':
+                const funcoes = {
+                    'del': deletarElem,
+                    'c': limparTela,
+                    '=': tela.innerHTML = calcular()
+                };
+                funcoes[elem]('0');
+                break;
         }
+    }
 
+    
+    const limit = () => {
+        const quant = tela.innerHTML.length;
+        if (quant >= 13 && quant < 18) {
+            tela.style.fontSize = `${60 - quant}px`;
+        } else if (quant == 18) {
+            return true;
+        }
+    }
+
+    const limparTela = (elem = String) => {
+        tela.innerHTML = elem;
+        tela.style.fontSize = `60px`;
+    }
+
+    const calcular = () => {
+        return eval(tela.innerHTML);
+    }
+
+    const getUltimoElem = () => {
+        return tela.innerHTML.slice(-1);
+    }
+
+    const isSinal = (elem) => {
+        let resposta = null;
+        elementos.sinais.forEach(sinal => {
+            if (elem == sinal) resposta = true;
+        })
+
+        return resposta;
+    }
+
+    const deletarElem = () => {
+        const quantElem = tela.innerHTML.length;
+        const novoElem = tela.innerHTML.substring(0, quantElem-1);
+        if (quantElem == 1) {
+            limparTela('0');
+        } else {
+            tela.innerHTML = novoElem;
+        }
+    }
+}
+
+const elementos = {
+    sinais: ['-', '+', '/', '*', '.'],
+    funcoes: ['=', 'del', 'c'],
+    numeros: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
+};
+
+document.querySelectorAll('button').forEach(botao => {
+    botao.onclick = () => {
+        const valor = botao.value;
+        const botoes = new Calculadora();
+        elementos.sinais.forEach((sinal) => {
+            if (valor == sinal) botoes.exibirTela(valor, 'sinal');   
+        });
+        elementos.funcoes.forEach((funcao) => {
+
+            if (valor == funcao) botoes.exibirTela(valor, 'funcao');
+        });
+        elementos.numeros.forEach((numero) => {
+
+            if (valor == numero) botoes.exibirTela(valor, 'numero');
+        });
     }
 })
-
-let clicks = 0;
-
-function exibirTela(valor, limpar = false, zerarClick = false, valorType = 'number') {
-    if (tela.innerHTML.length >= 13) {
-        tela.style.fontSize = `${60 - clicks}px`
-    } else {
-        tela.style.fontSize = '60px';
-    }
-
-    if (tela.innerHTML.length >= 17 && valorType == 'number') {
-        null
-    } else {
-        if (limpar) {
-           tela.innerHTML = '';
-        }
-        if (clicks == 0) tela.innerHTML = '';
-
-        let conteudoTela = tela.innerHTML;
-        tela.innerHTML = conteudoTela + valor;
-
-        zerarClick ? clicks = 0 : clicks++;
-    }
-
-}
-
-function calcular(conta) {
-    const resultado = eval(conta);
-    if (resultado.toString().length > 13) {
-        return resultado.toFixed(3);
-    } else {
-        return resultado;
-    }
-
-}
-
-function getUltimoValor(valor) {
-    const ultimoValor = valor.slice(-1);
-    return ultimoValor;
-}
-
-function executeFunctions(valor) {
-    switch (valor) {
-        case 'c':
-            exibirTela('0', true, true, 'function');
-            break;
-        case '=':
-            const resultado = calcular(tela.innerHTML);
-            exibirTela(resultado, true, false, 'function');
-            break;
-        case 'del':
-            const tamanhoValor = tela.innerHTML.length;
-            const semUltimoValor = tela.innerHTML.substring(0, tamanhoValor - 1);
-            tamanhoValor == 1 ? exibirTela('0', true, true, 'function')
-                : exibirTela(semUltimoValor, true, false, 'function');
-            break;
-    }
-}
 
