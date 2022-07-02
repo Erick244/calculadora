@@ -7,79 +7,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <script src="https://kit.fontawesome.com/0db140f795.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/89e82a22a9.js" crossorigin="anonymous"></script>
     <title>Calculadora</title>
 </head>
 
 <body>
     <div kz-calc class="calc-body">
 
-        <div class="tela">0</div>
+        <input type="text" value="0" disabled class="tela">
 
         <div class="botoes">
             <table>
                 <tr>
                     <td>
-                        <button class="destaque" value="c">C</button>
+                        <button class="destaque function" value="c">C</button>
                     </td>
                     <td>
-                        <button class="destaque" value="/"><i class="fa-solid fa-divide"></i></button>
+                        <button class="destaque operator" value="/"><i class="fa-solid fa-divide"></i></button>
                     </td>
                     <td>
-                        <button class="destaque" value="*">X</button>
+                        <button class="destaque operator" value="*">X</button>
                     </td>
                     <td>
-                        <button class="destaque" value="-">-</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <button value="7">7</button>
-                    </td>
-                    <td>
-                        <button value="8">8</button>
-                    </td>
-                    <td>
-                        <button value="9">9</button>
-                    </td>
-                    <td>
-                        <button class="destaque" value="+">+</button>
+                        <button class="destaque operator" value="-">-</button>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <button value="4">4</button>
+                        <button class="number" value="7">7</button>
                     </td>
                     <td>
-                        <button value="5">5</button>
+                        <button class="number" value="8">8</button>
                     </td>
                     <td>
-                        <button value="6">6</button>
+                        <button class="number" value="9">9</button>
+                    </td>
+                    <td>
+                        <button class="destaque operator" value="+">+</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="number" value="4">4</button>
+                    </td>
+                    <td>
+                        <button class="number" value="5">5</button>
+                    </td>
+                    <td>
+                        <button class="number" value="6">6</button>
                     </td>
                     <td rowspan="2">
-                        <button class="destaque" value="=">=</button>
+                        <button class="destaque function" value="=">=</button>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <button value="1">1</button>
+                        <button class="number" value="1">1</button>
                     </td>
                     <td>
-                        <button value="2">2</button>
+                        <button class="number" value="2">2</button>
                     </td>
                     <td>
-                        <button value="3">3</button>
+                        <button class="number" value="3">3</button>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <button value="0">0</button>
+                        <button class="number" value="0">0</button>
                     </td>
                     <td>
-                        <button value=".">.</button>
+                        <button class="operator" value=".">.</button>
                     </td>
                     <td>
-                        <button value="del">
+                        <button class="function" value="del">
                             <i class="fa-solid fa-delete-left"></i>
                         </button>
                     </td>

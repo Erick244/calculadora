@@ -22,7 +22,8 @@ body {
 
 .tela {
     text-align: right;
-    height: 150px;
+    height: 145px;
+    width: 449px;
     border: 1px solid #fff;
     border-radius: 10px 10px 0 0;
     font-size: 60px;
@@ -68,6 +69,11 @@ button:hover {
 button:active {
     border-color: #ac89fc;
     transform: scale(0.98);
+}
+
+.erro:hover {
+    box-shadow: red 1px 1px 10px;
+    cursor: no-drop;
 }
 
 .destaque {

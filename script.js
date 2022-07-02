@@ -1,93 +1,78 @@
-function Calculadora() {
-    const tela = document.querySelector('.tela');
-    this.exibirTela = (elem, type) => {
-        switch (type) {
-            case 'numero':
-                if (!limit()) {
-                    tela.innerHTML == '0' ? tela.innerHTML = elem 
-                    : tela.innerHTML += elem;
-                }
+let lastButton = '';
+
+function calculator(button) {
+    const display = document.querySelector('.tela');
+    const displayLength = display.value.length;
+
+    const isNumber = hasClass(button, 'number');
+    const isOperator = hasClass(button, 'operator');
+    const isFunction = hasClass(button, 'function');
+
+    const buttonValue = button.value;
+
+    if (isNumber) {
+        displayLength == 1 && getFistButton(display) == '0'
+            ? display.value = buttonValue
+            : display.value += buttonValue;
+
+        lastButton = 'number';
+    } else if (isOperator) {
+        lastButton == 'operator' ? null : display.value += buttonValue;
+        lastButton = 'operator';
+    } else if (isFunction) {
+        switch (buttonValue) {
+            case 'c':
+                clear(display);
                 break;
-            case 'sinal':
-                if (!limit()) {
-                    isSinal(getUltimoElem()) ? null : tela.innerHTML += elem;
-                }
+            case '=':
+                calculate(display.value, display);
                 break;
-            case 'funcao':
-                const funcoes = {
-                    'del': deletarElem,
-                    'c': limparTela,
-                    '=': tela.innerHTML = calcular()
-                };
-                funcoes[elem]('0');
+            case 'del':
+                del(display, displayLength);
                 break;
         }
     }
-
-    
-    const limit = () => {
-        const quant = tela.innerHTML.length;
-        if (quant >= 13 && quant < 18) {
-            tela.style.fontSize = `${60 - quant}px`;
-        } else if (quant == 18) {
-            return true;
-        }
-    }
-
-    const limparTela = (elem = String) => {
-        tela.innerHTML = elem;
-        tela.style.fontSize = `60px`;
-    }
-
-    const calcular = () => {
-        return eval(tela.innerHTML);
-    }
-
-    const getUltimoElem = () => {
-        return tela.innerHTML.slice(-1);
-    }
-
-    const isSinal = (elem) => {
-        let resposta = null;
-        elementos.sinais.forEach(sinal => {
-            if (elem == sinal) resposta = true;
-        })
-
-        return resposta;
-    }
-
-    const deletarElem = () => {
-        const quantElem = tela.innerHTML.length;
-        const novoElem = tela.innerHTML.substring(0, quantElem-1);
-        if (quantElem == 1) {
-            limparTela('0');
-        } else {
-            tela.innerHTML = novoElem;
-        }
-    }
+    resetZero(display);
 }
 
-const elementos = {
-    sinais: ['-', '+', '/', '*', '.'],
-    funcoes: ['=', 'del', 'c'],
-    numeros: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
-};
+function del(display, displayLength) {
+    const count = display.value;
+    const newCount = count.substring(0, displayLength - 1);
+    display.value = newCount;
+}
 
-document.querySelectorAll('button').forEach(botao => {
-    botao.onclick = () => {
-        const valor = botao.value;
-        const botoes = new Calculadora();
-        elementos.sinais.forEach((sinal) => {
-            if (valor == sinal) botoes.exibirTela(valor, 'sinal');   
-        });
-        elementos.funcoes.forEach((funcao) => {
+function calculate(count, display) {
+    const res = eval(count);
+    display.value = res;
+}
 
-            if (valor == funcao) botoes.exibirTela(valor, 'funcao');
-        });
-        elementos.numeros.forEach((numero) => {
+function resetZero(display) {
+    if (display.value == '') display.value = '0';
+}
 
-            if (valor == numero) botoes.exibirTela(valor, 'numero');
-        });
+const clear = display => display.value = '0';
+
+function getFistButton(display) {
+    const fistButton = display.value.substring(1, -1);
+    return fistButton;
+}
+
+
+function hasClass(elem, classe) {
+    const classes = elem.classList;
+    let hasClass = false;
+
+    classes.forEach(c => {
+        hasClass = c === classe;
+    })
+
+    return hasClass;
+}
+
+const buttons = document.querySelectorAll('button');
+
+buttons.forEach(button => {
+    button.onclick = () => {
+        calculator(button);
     }
 })
-
